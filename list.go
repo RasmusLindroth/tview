@@ -112,6 +112,7 @@ func (l *List) SetCurrentItem(index int) *List {
 	}
 
 	l.currentItem = index
+	l.adjustOffset()
 
 	return l
 }
@@ -185,6 +186,7 @@ func (l *List) RemoveItem(index int) *List {
 	if previousCurrentItem == index && l.changed != nil {
 		item := l.items[l.currentItem]
 		l.changed(l.currentItem, item.MainText, item.SecondaryText, item.Shortcut)
+		l.adjustOffset()
 	}
 
 	return l
@@ -377,6 +379,7 @@ func (l *List) InsertItem(index int, mainText, secondaryText string, shortcut ru
 		item := l.items[0]
 		l.changed(0, item.MainText, item.SecondaryText, item.Shortcut)
 	}
+	l.adjustOffset()
 
 	return l
 }
